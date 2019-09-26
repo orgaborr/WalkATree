@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -25,7 +26,13 @@ public class WalkTreeMain {
 			e.printStackTrace();
 		}
 		
-
+		System.out.println("\nWalk Tree for dir1");
+		Path dir1Path = FileSystems.getDefault().getPath("topDir");
+		try {
+			Files.walkFileTree(dir1Path, new PrintContent());
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
