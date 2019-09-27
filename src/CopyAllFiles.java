@@ -17,8 +17,18 @@ public class CopyAllFiles extends SimpleFileVisitor<Path> {
 
 	@Override
 	public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-		// TODO Auto-generated method stub
-		return super.visitFile(file, attrs);
+		Path relativizedPath = sourceRoot.relativize(file);
+		System.out.println("Relativized Path = " + relativizedPath);
+		Path resolvedPath = targetRoot.resolve(relativizedPath);
+		System.out.println("Resolved Path = " + resolvedPath);
+		
+		try {
+			Files.copy(file, resolvedPath);
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		return FileVisitResult.CONTINUE;
 	}
 
 	@Override
