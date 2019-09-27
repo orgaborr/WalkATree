@@ -26,10 +26,22 @@ public class WalkTreeMain {
 			e.printStackTrace();
 		}
 		
-		System.out.println("\nWalk Tree for dir1");
-		Path dir1Path = FileSystems.getDefault().getPath("topDir");
+		System.out.println("\nWalk Tree for topDir");
+		Path topDirPath = FileSystems.getDefault().getPath("topDir");
 		try {
-			Files.walkFileTree(dir1Path, new PrintContent());
+			Files.walkFileTree(topDirPath, new PrintContent());
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("\nCopy topDir/dir1 to dir2/dir1copy");
+		
+		Path copyPath = FileSystems.getDefault().getPath("topDir" + File.separator + "dir2" + File.separator + "dir1copy");
+		Path dir1Path = FileSystems.getDefault().getPath("topDir" + File.separator + "dir1");
+		
+		try {
+			Files.walkFileTree(dir1Path, new CopyAllFiles(dir1Path, copyPath));
+			
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
